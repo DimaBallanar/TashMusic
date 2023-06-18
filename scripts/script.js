@@ -1,89 +1,69 @@
-const spotifyButton = document.querySelector(".spotify");
+// import * as myModule from './playlist.service.js';
+
+const spotifyBtn = document.querySelector('.spotify');
+const songNameDiv = document.querySelector('.track-name');
+const singerNameDiv = document.querySelector('.singer');
+const envelopeImg = document.querySelector('.envelope');
+const nextSongBtn = document.querySelector('.forward');
+const backSongBtn = document.querySelector('.back');
+const playBtn = document.querySelector('.stop');
+const likeBtn = document.querySelector('.like');
+const songAudio = document.createElement('audio');
+
+const htmlObj = {
+    spotifyBtn,
+    songNameDiv,
+    singerNameDiv,
+    envelopeImg,
+    nextSongBtn,
+    backSongBtn,
+    playBtn,
+    likeBtn,
+    songAudio
+};
+const player = new Player(getAllMusic(), htmlObj);
+
+player.applySong(player.playListSongs[player.songIndex]);
+
+likeBtn.addEventListener('click', function () {
+    const song = player.playListSongs[player.songIndex];
+    song.like = !song.like;
+    player.applyLikeSong(song);
+});
+
+playBtn.addEventListener('click', function () {
+    player.checkPlay = !player.checkPlay;
+    const buttonType = player.checkPlay ? './buttons/pause.svg' : './buttons/play.svg';
+    playBtn.style.backgroundImage = `url(${buttonType})`;
+    if (player.checkPlay) {
+        songAudio.play();
+
+    }
+    else {
+        songAudio.pause();
+    }
+});
+
+nextSongBtn.addEventListener('click', function () {
+    player.changeSong(player.nextSong());
+});
+
+backSongBtn.addEventListener('click', function () {
+    player.changeSong(player.backSong());
+});
+
 let checkColor = true;
-spotifyButton.addEventListener("click", function () {
-    const backgroundColor = document.querySelector("body");
+spotifyBtn.addEventListener('click', function () {
+    const backgroundColor = document.querySelector('body');
+    const playerGround = document.querySelector('.player');
     if (checkColor) {
-        backgroundColor.style.background = "#E5E5E5";
+        backgroundColor.style.background = '#E5E5E5';
+        playerGround.style.background = '#454545';
         checkColor = false;
     }
     else {
-        backgroundColor.style.background = "#454545";
+        backgroundColor.style.background = '#454545';
+        playerGround.style.background = '#FFFEF8';
         checkColor = true;
     }
 });
-
-const likeUnlikeButton = document.querySelector(".like");
-let checkLike = true;
-likeUnlikeButton.addEventListener("click", function () {
-    if (checkLike) {
-        const like = "./buttons/like.svg";
-        likeUnlikeButton.style.backgroundImage = `url(${like})`;
-        likeUnlikeButton.css
-        checkLike = false;
-    }
-    else {
-        const unlike = "./buttons/unlike.svg";
-        likeUnlikeButton.style.backgroundImage = `url(${unlike})`;
-        checkLike = true;
-    }
-});
-
-const playButton = document.querySelector(".stop");
-let checkPlay = true;
-const playButImage = "./buttons/play.svg";
-const pauseButImage = "./buttons/pause.svg";
-playButton.addEventListener("click", function () {
-    if (checkPlay) {
-        playButton.style.backgroundImage = `url(${pauseButImage})`;
-        audio.play();
-        changeNameSinger(playlist);
-        checkPlay = false;
-    }
-    else {
-        playButton.style.backgroundImage = `url(${playButImage})`;
-        audio.pause();
-        checkPlay = true;
-    }
-})
-const songName = document.querySelector(".track-name");
-const singerName = document.querySelector(".singer");
-const envelope=document.querySelector(".envelope");
-function changeNameSinger(song) {
-    songName.textContent = song[i].name;
-    singerName.textContent = song[i].singer;
-    envelope.style.backgroundImage=`url(${song[i].path})`;
-}
-
-const nextSong=document.querySelector(".forward");
-const backSong=document.querySelector(".back");
-
-nextSong.addEventListener("click", function(){
-    i++;
-    if(i==playlist.length){
-        i=0;
-        audio.src=playlist[i].path;
-        audio.play();
-        changeNameSinger(playlist);
-    }
-    else{
-        audio.src=playlist[i].path;
-        audio.play();
-        changeNameSinger(playlist);
-    }
-});
-
-backSong.addEventListener("click", function(){
-    i--;
-    if(i<0){
-        i=playlist.length-1;
-        audio.src=playlist[i].path;
-        audio.play();
-        changeNameSinger(playlist);
-    }
-    else{
-        audio.src=playlist[i].path;
-        audio.play();
-        changeNameSinger(playlist);
-    }
-});
-
