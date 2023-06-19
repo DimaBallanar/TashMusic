@@ -121,7 +121,7 @@ body {
 
 .stop {
   background-image: url(./buttons/play.svg);
-  width: 35px;
+  width: 20px;
   height: 35px;
   background-repeat: no-repeat;
 }

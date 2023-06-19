@@ -9,6 +9,7 @@ const backSongBtn = document.querySelector('.back');
 const playBtn = document.querySelector('.stop');
 const likeBtn = document.querySelector('.like');
 const songAudio = document.createElement('audio');
+const time = document.querySelector(`.time`)
 
 const htmlObj = {
     spotifyBtn,
@@ -67,3 +68,11 @@ spotifyBtn.addEventListener('click', function () {
         checkColor = true;
     }
 });
+
+function WatchTime() {   
+    const selectInterval=player.playListSongs;
+    const minutes = (selectInterval.currentTime() < 10) ? '0' + selectInterval.currentTime() : selectInterval.currentTime();
+    const seconds = (selectInterval.currentTime() < 10) ? '0' + selectInterval.currentTime() : selectInterval.currentTime();
+    time.innerHTML = minutes + ':' + seconds;
+};
+    
