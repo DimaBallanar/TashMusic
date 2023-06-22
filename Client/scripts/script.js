@@ -71,12 +71,6 @@ spotifyBtn.addEventListener('click', function () {
     }
 });
 
-// function WatchTime() {   
-//     // const selectInterval=songAudio;
-//     const minutes = (songAudio.currentTime < 10) ? '0' + songAudio.currentTime : songAudio.currentTime;
-//     const seconds = (songAudio.currentTime < 10) ? '0' + songAudio.currentTime : songAudio.currentTime;
-//     time.innerHTML = minutes + ':' + seconds;
-// };
 let updateProgress = (e) => {
     const {
         duration,
