@@ -9,7 +9,8 @@ const backSongBtn = document.querySelector('.back');
 const playBtn = document.querySelector('.stop');
 const likeBtn = document.querySelector('.like');
 const songAudio = document.createElement('audio');
-const time = document.querySelector(`.time`)
+const time = document.querySelector(`.time`);
+const line = document.querySelector(`.line`);
 
 const htmlObj = {
     spotifyBtn,
@@ -20,7 +21,8 @@ const htmlObj = {
     backSongBtn,
     playBtn,
     likeBtn,
-    songAudio
+    songAudio,
+    line
 };
 const player = new Player(getAllMusic(), htmlObj);
 
@@ -35,7 +37,7 @@ likeBtn.addEventListener('click', function () {
 playBtn.addEventListener('click', function () {
     player.checkPlay = !player.checkPlay;
     const buttonType = player.checkPlay ? './buttons/pause.svg' : './buttons/play.svg';
-    playBtn.style.backgroundImage = `url(${buttonType})`;
+    playBtn.style.backgroundImage = `url(${buttonType})`;  
     if (player.checkPlay) {
         songAudio.play();
 
@@ -69,10 +71,28 @@ spotifyBtn.addEventListener('click', function () {
     }
 });
 
-function WatchTime() {   
-    const selectInterval=player.playListSongs;
-    const minutes = (selectInterval.currentTime() < 10) ? '0' + selectInterval.currentTime() : selectInterval.currentTime();
-    const seconds = (selectInterval.currentTime() < 10) ? '0' + selectInterval.currentTime() : selectInterval.currentTime();
-    time.innerHTML = minutes + ':' + seconds;
-};
+// function WatchTime() {   
+//     // const selectInterval=songAudio;
+//     const minutes = (songAudio.currentTime < 10) ? '0' + songAudio.currentTime : songAudio.currentTime;
+//     const seconds = (songAudio.currentTime < 10) ? '0' + songAudio.currentTime : songAudio.currentTime;
+//     time.innerHTML = minutes + ':' + seconds;
+// };
+let updateProgress = (e) => {
+    const {
+        duration,
+        currentTime
+    } = e.target
+    const progressParcent = (currentTime / duration) * 100
+    line.style.width = `${progressParcent}%`;
+}
+songAudio.addEventListener(`timeupdate`, updateProgress);
+songAudio.addEventListener("timeupdate", function () {
+    let track_time = songAudio.currentTime;
+    let start = "0";
+    let minuts = Math.floor(track_time / 60);
+    let seconds = Math.floor(track_time - minuts * 60);
+    seconds < 10 ? seconds = "0" + seconds : null;
+    minuts > 10 ? start = "" : null;
+    time.innerHTML = start + minuts + ":" + seconds;
+});
     
