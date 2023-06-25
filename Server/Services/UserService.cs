@@ -3,34 +3,39 @@ using WebApplication1.Models;
 using WebApplication1.Repositories;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace WebApplication1.Services
+namespace Server.Repository
+public class UserService
 {
-    public class UserService
+    private readonly UserRepository m_Repository;
+
+    public UserService(UserRepository repository)
     {
+        m_Repository = repository;
+    }
 
-        private readonly UserRepository _repository;
-        public UserService(UserRepository repository)
-        {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
-        public List<UserModel> GetAll()
-        {
-            return new UserRepository().GetAllUsersFromDB(MySqlConnection c);
-        }
+    public List<User> GetAll()
+    {
+        return m_Repository.GetAll();
+    }   
 
-        private MySqlConnection Connection()
-        {
-            try
-            {
-                MySqlConnection connection = new MySqlConnection(AppSettingsHelper.ConnectionString);
-                connection.Open();
-                return connection;
-            }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw new Exception("connection error");
-            }
-        }
+    public User GetUserByEmail(string email)
+    {
+        if (email == null) throw new ArgumentNullException(nameof(email));
+        return m_Repository.GetByEmail(email);
+    }
+
+    public int Put(User user)
+    {
+        return m_Repository.Put(user);
+    }
+    public List<User> UpdateUserById(User user)
+    {
+        return m_Repository.Update(user);
+    }
+
+    public List<User> DeleteUser(int id)
+    {
+        return m_Repository.Delete(id);
     }
 }
+
