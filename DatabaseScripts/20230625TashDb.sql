@@ -3,13 +3,13 @@ use TashMusic;
 
 create table if not exists Users (
  Id int primary key auto_increment,
-    User_Name varchar(30) not null,
+    Name varchar(30) not null,
     Email varchar(50) unique,
-    Phone_Number varchar(15) unique,
-    User_Pwd int,
-    User_PlayList int,
-    foreign key(User_Pwd) references Passwords(id),
-    foreign key(User_Playlist) references Playlist(id)    
+    Number varchar(15) unique,
+    Pwd int,
+    PlayList int,
+    foreign key(Pwd) references Passwords(id),
+    foreign key(Playlist) references Playlist(id)    
     );
     
     create table if not exists Passwords(
@@ -19,22 +19,23 @@ create table if not exists Users (
     
 create table if not exists Songs(
  Id int  primary key auto_increment,
-    Song_Name varchar(100) not null,
-    Singer_Name varchar(100) not null,
-    File_Path varchar(250) unique,  
+    Name varchar(100) not null,
+    Name varchar(100) not null,
+    File_Path varchar(250) unique, 
+    Liked boolean default '0',
     Genre_Id int,
     foreign key(Genre_Id) references Genre_of_Music(id)
     );
 
 create table if not exists Genre_of_Music(
  Id int primary key auto_increment,
-    Name varchar(50) not null   
+    Genre_Type varchar(50) not null   
     );
 
 create table if not exists PlayList(
- Id int primary key auto_increment,
-    Name varchar(100) not null,
-    User_Id int  
+ Id int primary key auto_increment,    
+    Playlist_Array JSON default null
     );
     
+    drop  database tashmusic;
 
