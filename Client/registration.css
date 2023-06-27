@@ -50,7 +50,9 @@ body {
 .inputions {
     flex-direction: column;
     justify-content: space-around;
-    margin: 20px;
+    /* margin: 20px; */
+    /* margin-top: 20px; */
+    margin: 0 -5px;
    /* margin-top: auto; */
     /* width: Fixed (352px);
     height: Hug (38px); */
@@ -78,11 +80,13 @@ input {
     gap: 10px;
     font-size: 15px;
     color: #000000B2;
+    margin: 7px 30px;
 
 }
 .buttonss{
     flex-direction: column;
     justify-content: space-around;
+    margin: 15px -5px;
 }
 
 button{
@@ -90,10 +94,11 @@ button{
 height: Hug (38px);
 top: 483px;
 left: 24px;
+
 padding: 10px;
 border-radius: 20px;
 gap: 10px;
 background-color: #8B54FF;
-;
+margin: 7px 30px;
 
 }
