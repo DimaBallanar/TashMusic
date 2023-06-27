@@ -13,9 +13,9 @@ body {
 .window {
     position: absolute;
     top: 77px;
-    left: 428px;   
+    left: 428px;
     width: 400px;
-    height: 600px;
+    height: 400px;
     background: #FFFEF8;
     border-radius: 14.6957px;
     display: -webkit-box;
@@ -25,11 +25,7 @@ body {
     justify-content: space-between;
 }
 
-.register {
-    width: 181px;
-    height: 53px;
-    top: 36px;
-    left: 110px;
+.login {    
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
@@ -47,8 +43,8 @@ body {
 
 .inputions {
     flex-direction: column;
-    justify-content: space-around;  
-    margin: 0 -5px; 
+    justify-content: space-around;
+    margin: 0 -5px;
 }
 
 
@@ -68,22 +64,29 @@ input {
     margin: 7px 30px;
 
 }
-.buttonss{
+
+.buttonss {
+
     flex-direction: column;
     justify-content: space-around;
     margin: 15px -5px;
+    
 }
 
-button{
-    cursor: pointer;
-    width: Fixed (352px);
-height: Hug (38px);
-top: 483px;
-left: 24px;
-padding: 10px;
-border-radius: 20px;
-gap: 10px;
-background-color: #8B54FF;
-margin: 7px 30px;
+button {
+    cursor: pointer;    
+    top: 296px;
+    left: 124px;
+    padding: 10px;
+    border-radius: 20px;
+    gap: 10px;
+    background-color: #252EFF;
+    margin: 7px 30px;
+    width: Fixed (153px);
+    height: Fixed (38px);    
+   
+}
 
+h1{
+    margin: auto; 
 }
