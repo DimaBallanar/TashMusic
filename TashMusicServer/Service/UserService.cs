@@ -1,6 +1,6 @@
 ﻿using System;
 using MySqlConnector;
-using WebApplication1.Models;
+using TashMusicServer.Model;
 using WebApplication1.Repositories;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
