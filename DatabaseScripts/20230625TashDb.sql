@@ -6,16 +6,9 @@ create table if not exists Users (
     Name varchar(30) not null,
     Email varchar(50) unique,
     Number varchar(15) unique,
-    Pwd int,
-    PlayList int,
-    foreign key(Pwd) references Passwords(id),
-    foreign key(Playlist) references Playlist(id)    
-    );
-    
-    create table if not exists Passwords(
-    id int primary key auto_increment,
-    pwd varchar(255)   
-    );
+    pwd varchar(255)      
+    );    
+ 
     
 create table if not exists Songs(
  Id int  primary key auto_increment,
@@ -34,7 +27,9 @@ create table if not exists Genre_of_Music(
 
 create table if not exists PlayList(
  Id int primary key auto_increment,    
-    Playlist_Array JSON default null
+ User_id int,
+ foreign key(User_id) references Users(Id)
+    
     );
     
     drop  database tashmusic;
