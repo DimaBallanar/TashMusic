@@ -174,7 +174,7 @@ namespace MusicServer.Repository
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (reader.GetString(2) != user.Email)
+                    if (reader.GetString(2) != user.Email && string.IsNullOrEmpty( reader.GetString(2)))
                     {
                         m_Connection.Close();
                         User user1 = new User();
