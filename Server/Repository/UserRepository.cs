@@ -201,6 +201,7 @@ namespace MusicServer.Repository
                     }
 
                 }
+                m_Connection.Close();
                 return -1;
             }
             catch (MySqlException e)
