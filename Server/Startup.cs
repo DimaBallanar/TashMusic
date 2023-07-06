@@ -28,6 +28,7 @@ namespace MusicServer
             services.AddRepositories(connectionString);
             services.AddServices();
             services.AddMemoryCache();
+            services.AddCors();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -89,6 +90,13 @@ namespace MusicServer
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(x => x
+          .AllowAnyMethod()
+          .AllowAnyHeader()
+          .AllowCredentials()
+          .SetIsOriginAllowed(origin => true));// Allow any origin  
+
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseResponseCaching(); // добавляем Middleware кэширования
             app.UseEndpoints(endpoints =>
@@ -106,6 +114,7 @@ namespace MusicServer
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+
 
         }
 
