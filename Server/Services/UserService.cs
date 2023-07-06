@@ -22,7 +22,7 @@ namespace MusicServer.Services
             return m_Repository.GetAll(id);
         }
 
-        public string GetUserByEmail(string email,string password)
+        public User GetUserByEmail(string email,string password)
         {
             if(email==null) throw new ArgumentNullException(nameof (email));
              return m_Repository.GetByEmail(email, password);

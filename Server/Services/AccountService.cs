@@ -38,7 +38,7 @@ namespace MusicServer.Services
 
         private ClaimsIdentity GetIdentity(string email, string password)
         {
-            User user = m_Service.GetUserByEmail(email);
+            User user = m_Service.GetUserByEmail(email,password);
             if (user == null) return null; // если пользователя не найдено
             if (!user.Password.Equals(password)) return null;
                         var claims = new List<Claim> {

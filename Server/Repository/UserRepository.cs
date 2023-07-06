@@ -2,6 +2,7 @@
 using MusicServer.Models.Repository;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Xml.Linq;
 //using static Google.Protobuf.Collections.MapField<TKey, TValue>;
 
 namespace MusicServer.Repository
@@ -85,8 +86,15 @@ namespace MusicServer.Repository
                 {
                     if (reader.GetString(4) == password && reader.GetString(2) == email)
                     {
-                        User useк= new User();
-                        return email;
+                        User user = new User()
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            Email = reader.GetString(2).ToLower(),
+                            PhoneNumber = reader.GetString(3).ToLower(),
+                            Password = reader.GetString(4)
+                        };
+                        return user;
                     }                   
                 }
                 return null;
