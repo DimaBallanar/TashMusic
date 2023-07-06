@@ -1,12 +1,13 @@
 create database if not exists TashMusic;
 use TashMusic;
-
+insert into Users(name,email,number,password) value('admin', 'd.ballanar@gmail.com','+37525528579','admin12345');
+drop table users;
 create table if not exists Users (
  Id int primary key auto_increment,
     Name varchar(30) not null,
     Email varchar(50) unique,
     Number varchar(15) unique,
-    pwd varchar(255)      
+    password varchar(255)      
     );    
  
     
