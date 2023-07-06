@@ -10,7 +10,7 @@ namespace MusicServer.Repository
     public class UserRepository : BaseRepository
     {
         private readonly string SQL_SELECT_GET_ALL = "Select id, name, email, number, password from users";
-        private readonly string SQL_SELECT_GET_BY_EMAIL = "Select password from users where email=@email;";
+        private readonly string SQL_SELECT_GET_BY_EMAIL = "Select id, name, email, number, password from users where email=@email;";
         private readonly string SQL_PUT_ITEM = "insert into users(name,email,number,password) values (@name, @email, @number, @password)";
         private readonly string SQL_UPDATE_USER = "UPDATE users Set name=@name, surname=@surname, email=@email,password=@password where Id=@id";
         private readonly string SQL_DELETE_USER = "delete from users where Id=@id;";
@@ -84,7 +84,7 @@ namespace MusicServer.Repository
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    if (reader.GetString(4) == password && reader.GetString(2) == email)
+                    if (reader.GetString(2) == email && reader.GetString(4) == password )
                     {
                         User user = new User()
                         {
@@ -94,6 +94,7 @@ namespace MusicServer.Repository
                             PhoneNumber = reader.GetString(3).ToLower(),
                             Password = reader.GetString(4)
                         };
+                       
                         return user;
                     }                   
                 }
@@ -102,6 +103,10 @@ namespace MusicServer.Repository
             catch (MySqlException e)
             {
                 throw e;
+            }
+            finally
+            {
+                m_Connection.Close();
             }
         }
         public void Test(MySqlConnection conn, string script, params object[] item)
