@@ -29,27 +29,26 @@ namespace MusicServer.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //https://localhost:7172/api/User/get/1
-        [AllowAnonymous]
-        [HttpGet("get/{id}")]
-        public IActionResult Get(int id)
-        {
-            try
-            {
-                return Ok(m_userRepository.GetAll(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //https://localhost:7172/api/User/get/1     
+        //[HttpGet("get/{id}")]
+        //public IActionResult Get(int id)
+        //{
+        //    try
+        //    {
+        //        return Ok(m_userRepository.GetAll(id));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         [HttpPost]
         public IActionResult Post(User user) 
         {
             try
             {
-                return Ok(m_userRepository.Put(user));
+                return Ok(m_userRepository.Create(user));
             }
             catch (Exception ex)
             {
