@@ -9,7 +9,7 @@ namespace MusicServer.Repository
 {
     public class UserRepository : BaseRepository
     {
-        private readonly string SQL_SELECT_GET_ALL = "Select id, name, email, number, password from users";
+        private readonly string SQL_SELECT_GET_ALL = "Select id, name, email, number from users";
         private readonly string SQL_SELECT_GET_BY_EMAIL = "Select id, name, email, number, password from users where email=@email;";
         private readonly string SQL_PUT_ITEM = "insert into users(name,email,number,password) values (@name, @email, @number, @password)";
         private readonly string SQL_UPDATE_USER = "UPDATE users Set name=@name, surname=@surname, email=@email,password=@password where Id=@id";
@@ -45,35 +45,35 @@ namespace MusicServer.Repository
                 throw e;
             }
         }
-        public List<User> GetAll(int id)
-        {
-            try
-            {
-                m_Connection.Open();
-                MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
-                List<User> users = new List<User>();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    if (reader.GetInt32(0) == id)
-                    {
-                        users.Add(new User()
-                        {
-                            Id = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Email = reader.GetString(2).ToLower(),
-                            PhoneNumber = reader.GetString(3).ToLower(),
-                            Password = reader.GetString(4)
-                        });
-                    }
-                }
-                return users;
-            }
-            catch (MySqlException e)
-            {
-                throw e;
-            }
-        }
+        //public List<User> GetAll(int id)
+        //{
+        //    try
+        //    {
+        //        m_Connection.Open();
+        //        MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
+        //        List<User> users = new List<User>();
+        //        MySqlDataReader reader = cmd.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            if (reader.GetInt32(0) == id)
+        //            {
+        //                users.Add(new User()
+        //                {
+        //                    Id = reader.GetInt32(0),
+        //                    Name = reader.GetString(1),
+        //                    Email = reader.GetString(2).ToLower(),
+        //                    PhoneNumber = reader.GetString(3).ToLower(),
+        //                    Password = reader.GetString(4)
+        //                });
+        //            }
+        //        }
+        //        return users;
+        //    }
+        //    catch (MySqlException e)
+        //    {
+        //        throw e;
+        //    }
+        //}
         public User GetByEmail(string email, string password)
         {
             try
@@ -84,7 +84,7 @@ namespace MusicServer.Repository
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    if (reader.GetString(2) == email && reader.GetString(4) == password )
+                    if (reader.GetString(2) == email && reader.GetString(4) == password)
                     {
                         User user = new User()
                         {
@@ -94,9 +94,9 @@ namespace MusicServer.Repository
                             PhoneNumber = reader.GetString(3).ToLower(),
                             Password = reader.GetString(4)
                         };
-                       
+
                         return user;
-                    }                   
+                    }
                 }
                 return null;
             }
@@ -173,23 +173,21 @@ namespace MusicServer.Repository
         //    }
         //}
 
-        public int Put(User user)
+        public int Create(User user)
         {
             try
             {
                 m_Connection.Open();
-                MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    if (reader.GetString(2) != user.Email || string.IsNullOrEmpty(reader.GetString(2)))
-                    {
-                        m_Connection.Close();
-                        User user1 = new User();
-                        m_Connection.Open();
-                        MySqlCommand command = new MySqlCommand(SQL_PUT_ITEM, m_Connection);
-                        //MySqlCommand command = m_Connection.CreateCommand();
-                        //command.CommandText = SQL_PUT_ITEM;
+                //MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
+                //MySqlDataReader reader = cmd.ExecuteReader();
+                //while (reader.Read())
+                //{
+                //    if (reader.GetString(2) != user.Email || string.IsNullOrEmpty(reader.GetString(2)))
+                //    {
+                        //m_Connection.Close();
+                       
+                        //m_Connection.Open();
+                        MySqlCommand command = new MySqlCommand(SQL_PUT_ITEM, m_Connection);                      
                         command.Parameters.AddWithValue("@name", user.Name);
                         command.Parameters.AddWithValue("@email", user.Email.ToLower());
                         command.Parameters.AddWithValue("@number", user.PhoneNumber.ToLower());
@@ -198,11 +196,11 @@ namespace MusicServer.Repository
                         //cmd.ExecuteNonQuery();
                         command.ExecuteNonQuery();
                         return (int)command.LastInsertedId;
-                    }
+                //    }
 
-                }
+                //}
                 m_Connection.Close();
-                return -1;
+                //return -1;
             }
             catch (MySqlException e)
             {

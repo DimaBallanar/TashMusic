@@ -17,10 +17,10 @@ namespace MusicServer.Services
             return m_Repository.GetAll();
         }
 
-        public List<User> GetAll(int id)
-        {
-            return m_Repository.GetAll(id);
-        }
+        //public List<User> GetAll(int id)
+        //{
+        //    return m_Repository.GetAll(id);
+        //}
 
         public User GetUserByEmail(string email,string password)
         {
@@ -30,7 +30,7 @@ namespace MusicServer.Services
 
         public int Put(User user)
         { 
-            return m_Repository.Put(user);
+            return m_Repository.Create(user);
         }
         public List <User> UpdateUserById(User user)
         {
