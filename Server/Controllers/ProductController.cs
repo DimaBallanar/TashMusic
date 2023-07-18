@@ -29,20 +29,7 @@ namespace MusicServer.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
-
-        [HttpGet("get/{id}")]
-        public IActionResult Get(int id)
-        {
-            try
-            {
-                return Ok(m_productRepository.GetAll(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        }        
 
         [HttpPost]
         public IActionResult Post(Product product)
@@ -55,20 +42,7 @@ namespace MusicServer.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
-
-        [HttpPut]
-        public IActionResult Update(Product product)
-        {
-            try
-            {
-                return Ok(m_productRepository.Update(product));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        }     
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
