@@ -1,5 +1,4 @@
 const inputFile = document.getElementById('custom-file');
-
 const filesEditor = document.querySelector('.files-editors');
 const send = document.getElementById('send-files');
 
@@ -7,7 +6,7 @@ let fileNames = [];
 inputFile.addEventListener(
     'change',
     (event) => {
-        filesEditor.innerHTML = 'Нажми меня';
+        filesEditor.innerHTML = '';
         const files = event.target.files;
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
@@ -20,11 +19,8 @@ inputFile.addEventListener(
             inputSongName.addEventListener('change', (event) => {
                 fileNames[i] = event.target.value;
             });
-
-
             blockSongName.appendChild(labelSongName);
             blockSongName.appendChild(inputSongName);
-
             filesEditor.appendChild(blockSongName);
         }
     },
