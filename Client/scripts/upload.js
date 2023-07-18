@@ -3,11 +3,11 @@ const inputFile = document.getElementById('custom-file');
 const filesEditor = document.querySelector('.files-editors');
 const send = document.getElementById('send-files');
 
-let fileNames = []
+let fileNames = [];
 inputFile.addEventListener(
     'change',
     (event) => {
-        filesEditor.innerHTML = '';
+        filesEditor.innerHTML = 'Нажми меня';
         const files = event.target.files;
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
