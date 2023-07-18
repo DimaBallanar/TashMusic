@@ -9,11 +9,11 @@ namespace MusicServer.Repository
         private readonly string SQL_SELECT_GET_ALL = "Select id,name,description,price,brand_id,category_id from Product";
         private readonly string SQL_PUT_ITEM = "insert into Product(name,filepath,genreid) values (@name, @filepath, @genreid)";       
         private readonly string SQL_DELETE_PRODUCT = "delete from Product where Id=@id;";
-        private readonly string SQL_SELECT_FOR_VIEW_PRODUCTS= @"select c.name as Продукт ,description as описание,price  as цена,b.name as бренд,c.Name as категория from product p
-                                                                inner join brand b
-                                                                on b.ID=p.brand_id
-                                                                inner join category c
-                                                                on c.ID= p.category_id;";
+        //private readonly string SQL_SELECT_FOR_VIEW_PRODUCTS= @"select c.name as Продукт ,description as описание,price  as цена,b.name as бренд,c.Name as категория from product p
+        //                                                        inner join brand b
+        //                                                        on b.ID=p.brand_id
+        //                                                        inner join category c
+        //                                                        on c.ID= p.category_id;";
                                                                 
         public ProductRepository(MySqlConnection connection) : base(connection)
         {
