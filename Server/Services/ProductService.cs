@@ -15,7 +15,12 @@ namespace MusicServer.Services
         public List<Product> GetAll()
         {
             return m_ProductRepository.GetAll();
-        }       
+        }   
+        
+        public Product GetById(int id)
+        {
+            return m_ProductRepository.GetById(id);
+        }
 
         public int PutProduct(Product product)
         { 

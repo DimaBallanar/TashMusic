@@ -47,7 +47,33 @@ namespace MusicServer.Repository
                 throw e;
             }
         }
-       
+        public Product GetById(int id)
+        {
+            try
+            {
+                m_Connection.Open();
+                MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
+                Product product = new Product();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) == id)
+                    {
+                        product.Id = reader.GetInt32(0);
+                        product.Name = reader.GetString(1);
+                        product.FilePath = reader.GetString(2).ToLower();
+                        product.GenreId = reader.GetInt32(3);                          
+                       
+                    }
+                }
+                return product;
+            }
+            catch (MySqlException e)
+            {
+                throw e;
+            }
+        }
+
         public int Put(Product product)
         {
             try
