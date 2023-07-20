@@ -177,30 +177,16 @@ namespace MusicServer.Repository
         {
             try
             {
-                m_Connection.Open();
-                //MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
-                //MySqlDataReader reader = cmd.ExecuteReader();
-                //while (reader.Read())
-                //{
-                //    if (reader.GetString(2) != user.Email || string.IsNullOrEmpty(reader.GetString(2)))
-                //    {
-                        //m_Connection.Close();
-                       
-                        //m_Connection.Open();
-                        MySqlCommand command = new MySqlCommand(SQL_PUT_ITEM, m_Connection);                      
-                        command.Parameters.AddWithValue("@name", user.Name);
-                        command.Parameters.AddWithValue("@email", user.Email.ToLower());
-                        command.Parameters.AddWithValue("@number", user.PhoneNumber.ToLower());
-                        command.Parameters.AddWithValue("@password", user.Password);
-
-                        //cmd.ExecuteNonQuery();
-                        command.ExecuteNonQuery();
-                        return (int)command.LastInsertedId;
-                //    }
-
-                //}
+                m_Connection.Open();               
+                MySqlCommand command = new MySqlCommand(SQL_PUT_ITEM, m_Connection);
+                command.Parameters.AddWithValue("@name", user.Name);
+                command.Parameters.AddWithValue("@email", user.Email.ToLower());
+                command.Parameters.AddWithValue("@number", user.PhoneNumber.ToLower());
+                command.Parameters.AddWithValue("@password", user.Password);             
+                command.ExecuteNonQuery();
                 m_Connection.Close();
-                //return -1;
+                return (int)command.LastInsertedId;
+                
             }
             catch (MySqlException e)
             {

@@ -58,29 +58,42 @@ namespace MusicServer.Controllers
         //        }
         //    }
 
-        [HttpPost(Name = "LoadFiles")]
-        public async Task<byte[]> Post()
+        //[HttpPost(Name = "LoadFiles")]
+        //public async Task<byte[]> Post()
+        //{
+        //    try
+        //    {
+        //        var files = Request.Form.Files;
+        //        foreach (var file in files)
+        //        {
+        //            if (file.Length == 0) continue;
+
+        //            var filePath = Path.Combine("D:\\TestJS\\TashMusic\\Music", file.Name);
+        //            using (var stream = System.IO.File.Create(filePath))
+        //            {
+        //                await file.CopyToAsync(stream);
+        //                stream.Close();
+        //            }
+        //        }
+        //        var reFile = Path.Combine("D:\\TestJS\\TashMusic\\Music", files[0].Name);
+        //        return System.IO.File.ReadAllBytes(reFile);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new byte[0];
+        //    }
+        //}
+
+        [HttpPost]
+        public IActionResult Post(Product product)
         {
             try
             {
-                var files = Request.Form.Files;
-                foreach (var file in files)
-                {
-                    if (file.Length == 0) continue;
-
-                    var filePath = Path.Combine("D:\\TestJS\\TashMusic\\Music", file.Name);
-                    using (var stream = System.IO.File.Create(filePath))
-                    {
-                        await file.CopyToAsync(stream);
-                        stream.Close();
-                    }
-                }
-                var reFile = Path.Combine("D:\\TestJS\\TashMusic\\Music", files[0].Name);
-                return System.IO.File.ReadAllBytes(reFile);
+                return Ok(m_productService.PutProduct(product));
             }
             catch (Exception ex)
             {
-                return new byte[0];
+                return BadRequest(ex.Message);
             }
         }
 

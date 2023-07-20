@@ -42,6 +42,18 @@ namespace MusicServer.Controllers
         //        return BadRequest(ex.Message);
         //    }
         //}
+        [HttpPost("[action]")]
+        public IActionResult GetByEmail(string email, string pass)
+        {
+            try
+            {
+                return Ok(m_userRepository.GetByEmail(email, pass));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost]
         public IActionResult Post(User user) 

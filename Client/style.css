@@ -153,10 +153,14 @@ body {
   cursor: pointer;
 }
 
-#loader{
+.files-editors{
   display: flex;
   flex-direction: column;
+  
 }
 
+#loader{
+  background: #DADADA;
+}
 
 

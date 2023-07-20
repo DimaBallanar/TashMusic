@@ -1,20 +1,22 @@
 ﻿using MySql.Data.MySqlClient;
 using MusicServer.Models.Repository;
+using System.Data;
 
 namespace MusicServer.Repository
 {
     public class ProductRepository : BaseRepository
     {
       
-        private readonly string SQL_SELECT_GET_ALL = "Select id,name,description,price,brand_id,category_id from Product";
-        private readonly string SQL_PUT_ITEM = "insert into Product(name,filepath,genreid) values (@name, @filepath, @genreid)";       
-        private readonly string SQL_DELETE_PRODUCT = "delete from Product where Id=@id;";
+        private readonly string SQL_SELECT_GET_ALL = "Select id,name,filepath,genreid from Songs";
+        private readonly string SQL_PUT_ITEM = "insert into Songs(name,filepath,genreid) values (@name, @filepath, @genreid)";       
+        private readonly string SQL_DELETE_PRODUCT = "delete from Songs where Id=@id;";
+        private readonly string FilePath = @"D:\TestJS\TashMusic\Music";
         //private readonly string SQL_SELECT_FOR_VIEW_PRODUCTS= @"select c.name as Продукт ,description as описание,price  as цена,b.name as бренд,c.Name as категория from product p
         //                                                        inner join brand b
         //                                                        on b.ID=p.brand_id
         //                                                        inner join category c
         //                                                        on c.ID= p.category_id;";
-                                                                
+
         public ProductRepository(MySqlConnection connection) : base(connection)
         {
         }
@@ -24,8 +26,7 @@ namespace MusicServer.Repository
             try
             {
                 m_Connection.Open();
-                MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
-                //MySqlCommand cmd = new MySqlCommand(SQL_SELECT_FOR_VIEW_PRODUCTS, m_Connection);
+                MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);               
                 List<Product> products = new List<Product>();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -44,6 +45,7 @@ namespace MusicServer.Repository
             }
             catch (MySqlException e)
             {
+                m_Connection.Close();
                 throw e;
             }
         }
@@ -70,6 +72,7 @@ namespace MusicServer.Repository
             }
             catch (MySqlException e)
             {
+                m_Connection.Close();
                 throw e;
             }
         }
@@ -79,28 +82,31 @@ namespace MusicServer.Repository
             try
             {
                 m_Connection.Open();
-                MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    if (reader.GetString(1) != product.Name)
-                    {
-                        m_Connection.Close();
-                        Product product1 = new Product();
-                        m_Connection.Open();
+                //MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
+                //MySqlDataReader reader = cmd.ExecuteReader();
+                //while (reader.Read())
+                //{
+                //    if (reader.GetString(1) != product.Name)
+                //    {
+                //        m_Connection.Close();
+                       
+                //        m_Connection.Open();
                         MySqlCommand command = new MySqlCommand(SQL_PUT_ITEM, m_Connection);                       
                         command.Parameters.AddWithValue("@name", product.Name);
-                        command.Parameters.AddWithValue("@description", product.FilePath);
+                        command.Parameters.AddWithValue("@filepath", product.FilePath);
                         command.Parameters.AddWithValue("@genreid", product.GenreId);                       
+                      
                         command.ExecuteNonQuery();
+                        m_Connection.Close();
                         return (int)command.LastInsertedId;
-                    }
+                //    }
 
-                }
-                return -1;
+                //}
+                //return -1;
             }
             catch (MySqlException e)
             {
+                m_Connection.Close();
                 throw e;
             }
         }      
@@ -119,6 +125,7 @@ namespace MusicServer.Repository
             }
             catch (MySqlException ex)
             {
+                m_Connection.Close();
                 Console.WriteLine(ex);
                 throw ex;
             }
