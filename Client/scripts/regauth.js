@@ -17,6 +17,11 @@ function registrationAPI(user){
     hxr.send(JSON.stringify(user));
     hxr.onload = () => console.log(hxr.response);
 }
+
+document.getElementById('signlogin').onclick=function(){
+    window.location.href='D:/TestJS/TashMusic/Client/login.html';
+}
+
 //переписать на fetch
 // document.getElementById('registration').addEventListener('click', async () => {
 //     const user = {

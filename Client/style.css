@@ -153,6 +153,10 @@ body {
   cursor: pointer;
 }
 
+#loader{
+  display: flex;
+  flex-direction: column;
+}
 
 
 
