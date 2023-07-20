@@ -19,7 +19,7 @@ let login = new Object();
 //         }
 //     };   
 // }
-
+// token
 document.getElementById('logining').addEventListener('click', async () => {
     login.NickName = document.getElementById('emailForLogin').value;
     login.Password = document.getElementById('passForLogin').value;
@@ -41,5 +41,27 @@ if (json.accessToken != null) {
                 window.location.href='D:/TestJS/TashMusic/Client/login.html'
             }      
 });   
+//**********************NE TOKEN */
+// document.getElementById('logining').addEventListener('click', async () => {
+//      const NickName = document.getElementById('emailForLogin').value;
+//     const Password = document.getElementById('passForLogin').value;
+
+// const response=await fetch(`https://localhost:7172/api/user/GetByEmail`, {
+//     method: 'POST',
+//     headers:{
+//         "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify(NickName, Password)
+// })
+// const json=await response.json();
+// console.log(json) ;  
+// if (json.accessToken != null) {
+//                 window.location.href = 'D:/TestJS/TashMusic/Client/index.html';
+    
+//             }
+//             else{
+//                 window.location.href='D:/TestJS/TashMusic/Client/login.html'
+//             }      
+// });  
     
 
