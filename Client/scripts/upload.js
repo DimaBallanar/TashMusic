@@ -18,7 +18,7 @@ inputFile.addEventListener(
             labelSongName.textContent = 'Name';
             const blockGenre = document.createElement('div');
             const labelGenre = document.createElement('label');
-            const inputGenre = document.createElement('input', { is: "generation" });
+            const inputGenre = document.createElement('input', { is: "generation" });         
             labelGenre.textContent = 'Жанр';
             fileNames.push(file.name)
             const inputSongName = document.createElement('input');
@@ -26,9 +26,10 @@ inputFile.addEventListener(
             inputSongName.addEventListener('change', (event) => {
                 fileNames[i] = event.target.value;
             });
-            // inputGenre.addEventListener('change', (event) => {
-            //     genreNames[i] = event.target.value;                 
-            // });          
+            inputGenre.addEventListener('change', (event) => {
+                genreNames[i]=event.target.value;                 
+            });    
+            genreNames.push(genreNames[i])     ; 
             blockSongName.appendChild(labelSongName);
             blockSongName.appendChild(inputSongName);
             filesEditor.appendChild(blockSongName);
@@ -50,7 +51,7 @@ send.addEventListener('click', () => {
         const formData = {
            id:i,
             filePath:"D:\\TestJS\\TashMusic\\Music",
-            genre:1,
+            genre:genreNames[i],
             name:files[i].name,
         };
 pushingMusic(formData);
