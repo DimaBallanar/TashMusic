@@ -3,9 +3,9 @@ const filesEditor = document.querySelector('.files-editors');
 const send = document.getElementById('send-files');
 
 
-let result = new Object();
+
 let fileNames = [];
-let genreNames = [];
+let result = new Object();
 inputFile.addEventListener(
     'change',
     (event) => {
@@ -13,6 +13,7 @@ inputFile.addEventListener(
         const files = event.target.files;
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
+            
             const blockSongName = document.createElement('div');
             const labelSongName = document.createElement('label');
             labelSongName.textContent = 'Name';
@@ -20,16 +21,16 @@ inputFile.addEventListener(
             const labelGenre = document.createElement('label');
             const inputGenre = document.createElement('input', { is: "generation" });         
             labelGenre.textContent = 'Жанр';
-            fileNames.push(file.name)
+            // fileNames.push(file.name)
             const inputSongName = document.createElement('input');
             inputSongName.value = file.name;
             inputSongName.addEventListener('change', (event) => {
-                fileNames[i] = event.target.value;
+                fileNames[i].result.name = event.target.value;
             });
             inputGenre.addEventListener('change', (event) => {
-                genreNames[i]=event.target.value;                 
+                fileNames[i].result.genre=event.target.value;                 
             });    
-            genreNames.push(genreNames[i])     ; 
+            //   fileNames.push(result);
             blockSongName.appendChild(labelSongName);
             blockSongName.appendChild(inputSongName);
             filesEditor.appendChild(blockSongName);
@@ -45,14 +46,16 @@ inputFile.addEventListener(
 
 send.addEventListener('click', () => {
 
-    const files = inputFile.files;
+    const files = fileNames;
 
     for (let i = 0; i < files.length; i++) {
         const formData = {
-           id:i,
-            filePath:"D:\\TestJS\\TashMusic\\Music",
-            genre:genreNames[i],
             name:files[i].name,
+            FilePath:"D:\\TestJS\\TashMusic\\Music",
+            GenreId:files[i].genre,
+            
+            // genre:files[i].genre,
+            // name:files[i].name
         };
 pushingMusic(formData);
     }
@@ -63,7 +66,7 @@ function pushingMusic(fil){
     hxr.open('POST', 'https://localhost:7172/api/Product/');
     hxr.setRequestHeader('Content-Type', 'application/json');
     hxr.send(JSON.stringify(fil));
-    // hxr.onload = () => console.log(hxr.response);    
+    hxr.onload = () => console.log(hxr.response);        
 };
 
 
