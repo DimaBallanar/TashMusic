@@ -5,7 +5,7 @@ const send = document.getElementById('send-files');
 
 
 let fileNames = [];
-let result = new Object();
+// let result = new Object();
 inputFile.addEventListener(
     'change',
     (event) => {
@@ -34,7 +34,7 @@ inputFile.addEventListener(
                 returnevent.target.value;                 
             })
         };   
-            //   fileNames.push(result);
+              fileNames.push(result);
             blockSongName.appendChild(labelSongName);
             blockSongName.appendChild(inputSongName);
             filesEditor.appendChild(blockSongName);
