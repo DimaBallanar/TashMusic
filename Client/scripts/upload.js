@@ -24,12 +24,16 @@ inputFile.addEventListener(
             // fileNames.push(file.name)
             const inputSongName = document.createElement('input');
             inputSongName.value = file.name;
+            let result={
+                name:
             inputSongName.addEventListener('change', (event) => {
-                fileNames[i].result.name = event.target.value;
-            });
+                return event.target.value;
+            }),
+            genre:
             inputGenre.addEventListener('change', (event) => {
-                fileNames[i].result.genre=event.target.value;                 
-            });    
+                returnevent.target.value;                 
+            })
+        };   
             //   fileNames.push(result);
             blockSongName.appendChild(labelSongName);
             blockSongName.appendChild(inputSongName);
