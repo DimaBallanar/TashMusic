@@ -31,7 +31,7 @@ inputFile.addEventListener(
             }),
             genre:
             inputGenre.addEventListener('change', (event) => {
-                returnevent.target.value;                 
+                return event.target.value;                 
             })
         };   
               fileNames.push(result);
