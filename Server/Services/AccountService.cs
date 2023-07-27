@@ -38,12 +38,11 @@ namespace MusicServer.Services
 
         private ClaimsIdentity GetIdentity(string email, string password)
         {
-            User user = m_Service.GetUserByEmail(email,password);
+            User user = m_Service.GetUserByEmail(email, password);      // убрать пароль с метода**********************
             if (user == null) return null; // если пользователя не найдено
             if (!user.Password.Equals(password)) return null;
-                        var claims = new List<Claim> {
-            new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Id%2==0?"User":"Admin")
+            var claims = new List<Claim> {
+            new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email)           
             };
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(
             claims,

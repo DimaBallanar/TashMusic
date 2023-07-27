@@ -45,35 +45,7 @@ namespace MusicServer.Repository
                 throw e;
             }
         }
-        //public List<User> GetAll(int id)
-        //{
-        //    try
-        //    {
-        //        m_Connection.Open();
-        //        MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_ALL, m_Connection);
-        //        List<User> users = new List<User>();
-        //        MySqlDataReader reader = cmd.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            if (reader.GetInt32(0) == id)
-        //            {
-        //                users.Add(new User()
-        //                {
-        //                    Id = reader.GetInt32(0),
-        //                    Name = reader.GetString(1),
-        //                    Email = reader.GetString(2).ToLower(),
-        //                    PhoneNumber = reader.GetString(3).ToLower(),
-        //                    Password = reader.GetString(4)
-        //                });
-        //            }
-        //        }
-        //        return users;
-        //    }
-        //    catch (MySqlException e)
-        //    {
-        //        throw e;
-        //    }
-        //}
+       
         public User GetByEmail(string email, string password)
         {
             try
@@ -82,23 +54,20 @@ namespace MusicServer.Repository
                 MySqlCommand cmd = new MySqlCommand(SQL_SELECT_GET_BY_EMAIL, m_Connection);
                 cmd.Parameters.AddWithValue("@email", email.ToLower());
                 MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if (!reader.Read())
                 {
-                    if (reader.GetString(2) == email && reader.GetString(4) == password)
-                    {
-                        User user = new User()
-                        {
-                            Id = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Email = reader.GetString(2).ToLower(),
-                            PhoneNumber = reader.GetString(3).ToLower(),
-                            Password = reader.GetString(4)
-                        };
+                    return null;
 
-                        return user;
-                    }
                 }
-                return null;
+                return new User
+                {
+                    Id = reader.GetInt32(0),
+                    Name = reader.GetString(1),
+                    Email = reader.GetString(2).ToLower(),
+                    PhoneNumber = reader.GetString(3).ToLower(),
+                    Password = reader.GetString(4)
+                }; 
+
             }
             catch (MySqlException e)
             {
@@ -177,16 +146,16 @@ namespace MusicServer.Repository
         {
             try
             {
-                m_Connection.Open();               
+                m_Connection.Open();
                 MySqlCommand command = new MySqlCommand(SQL_PUT_ITEM, m_Connection);
                 command.Parameters.AddWithValue("@name", user.Name);
                 command.Parameters.AddWithValue("@email", user.Email.ToLower());
                 command.Parameters.AddWithValue("@number", user.PhoneNumber.ToLower());
-                command.Parameters.AddWithValue("@password", user.Password);             
+                command.Parameters.AddWithValue("@password", user.Password);
                 command.ExecuteNonQuery();
                 m_Connection.Close();
                 return (int)command.LastInsertedId;
-                
+
             }
             catch (MySqlException e)
             {
@@ -201,8 +170,7 @@ namespace MusicServer.Repository
                 m_Connection.Open();
                 MySqlCommand cmd = new MySqlCommand(SQL_UPDATE_USER, m_Connection);
 
-                cmd.Parameters.AddWithValue("@name", user.Name);
-                cmd.Parameters.AddWithValue("@email", user.Email.ToLower());
+                cmd.Parameters.AddWithValue("@name", user.Name);               
                 cmd.Parameters.AddWithValue("@number", user.PhoneNumber.ToLower());
                 cmd.Parameters.AddWithValue("@password", user.Password);
                 cmd.ExecuteNonQuery();

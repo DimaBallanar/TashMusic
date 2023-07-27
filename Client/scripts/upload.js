@@ -5,14 +5,15 @@ const send = document.getElementById('send-files');
 
 
 let fileNames = [];
-// let result = new Object();
+let files = [];
 inputFile.addEventListener(
     'change',
     (event) => {
         filesEditor.innerHTML = '';
-        const files = event.target.files;
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
+        files=event.target.files;
+        const file = files[0];
+        // for (let i = 0; i < files.length; i++) {
+        //     const file = files[i];
             
             const blockSongName = document.createElement('div');
             const labelSongName = document.createElement('label');
@@ -24,18 +25,9 @@ inputFile.addEventListener(
             // fileNames.push(file.name)
             const inputSongName = document.createElement('input');
             inputSongName.value = file.name;
-            let result={
-                name:
-            inputSongName.addEventListener('change', (event) => {
-                return event.target.value;
-            }),
-            genre:
-            inputGenre.addEventListener('change', (event) => {
-                return event.target.value;                 
-            })
-        };   
-        console.log(result);
-              fileNames.push(result);
+           
+       
+            //   fileNames.push(result);
             blockSongName.appendChild(labelSongName);
             blockSongName.appendChild(inputSongName);
             filesEditor.appendChild(blockSongName);
@@ -44,27 +36,38 @@ inputFile.addEventListener(
             blockGenre.appendChild(inputGenre);
             filesEditor.appendChild(blockGenre);
 
-        }
+        // }
     },
     false
 );
 
 send.addEventListener('click', () => {
+    console.log(files);
+    // let result={
+    //     name:
+    // inputSongName.addEventListener('change', (event) => {
+    //     return event.target.value;
+    // }),
+    // genre:
+    // inputGenre.addEventListener('change', (event) => {
+    //     return event.target.value;                 
+    // })
+// };   
 
-    const files = fileNames;
+    // const files = fileNames;
 
-    for (let i = 0; i < files.length; i++) {
-        const formData = {
-            name:files[i].name,
-            FilePath:"D:\\TestJS\\TashMusic\\Music",
-            GenreId:files[i].genre,
+    // for (let i = 0; i < files.length; i++) {
+    //     const formData = {
+    //         name:files[i].name,
+    //         FilePath:"D:\\TestJS\\TashMusic\\Music",
+    //         GenreId:files[i].genre,
             
-            // genre:files[i].genre,
-            // name:files[i].name
-        };
-pushingMusic(formData);
+    //         // genre:files[i].genre,
+    //         // name:files[i].name
+    //     };
+pushingMusic(result);
     }
-});
+);
 
 function pushingMusic(fil){
     let hxr = new XMLHttpRequest();
