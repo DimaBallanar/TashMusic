@@ -34,6 +34,7 @@ inputFile.addEventListener(
                 return event.target.value;                 
             })
         };   
+        console.log(result);
               fileNames.push(result);
             blockSongName.appendChild(labelSongName);
             blockSongName.appendChild(inputSongName);
